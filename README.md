@@ -8,7 +8,7 @@
 ### administrator(admin)
  - CRUD pianos
  
- 
+## APP logic
  - superuser login:
     - redirect to admins/list(adminslist.html)
     - superuser can search any admins on adminslist.html
@@ -26,7 +26,9 @@
     - admin can click any pianos on pianoslist.html and route to
     pianos/id(piano_detail.html)
     - admin can edit or delete a piano on piano_detail.html
-
+    - embed google map on piano_detail.html and show geolocation
+    if geolocation is on
+    
 - navigation
     - admins: adminslist.html(only display to superuser)
     - pianos: pianoslist.html(display to all authenticated users)
@@ -47,7 +49,6 @@
 
 ## How to contribute:
 ```
-
 git clone .... admin_ui
 
 cd admin_ui
@@ -69,5 +70,8 @@ git checkout -b the_issue_you_want_to_work_on
 ```
 
 ## Run server:
-`python manage.py runserver`
+```
+python manage.py runserver 
+```
+## Start coding
 
