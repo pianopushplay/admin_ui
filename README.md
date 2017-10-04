@@ -1,4 +1,4 @@
-## Admin UI for pianospushplay
+## Admin UI for Pianospushplay
 
 ## App overview
 ### superuser
@@ -7,6 +7,7 @@
     
 ### administrator(admin)
  - CRUD pianos
+ 
  
 ## APP logic
  - superuser login:
@@ -29,10 +30,11 @@
     - embed google map on piano_detail.html and show geolocation
     if geolocation is on
     
-- navigation
+- navigation:
     - admins: adminslist.html(only display to superuser)
     - pianos: pianoslist.html(display to all authenticated users)
     
+ 
     
 ## Packages contributed to this app
 - Flask: framework
@@ -47,7 +49,7 @@
 - AJAX: send data to back end(or just use form)
 
 
-## How to contribute:
+## How to contribute
 ```
 git clone .... admin_ui
 
@@ -69,7 +71,7 @@ git checkout -b the_issue_you_want_to_work_on
 
 ```
 
-## Run server:
+## Run server
 ```
 python manage.py runserver 
 ```
