@@ -13,11 +13,8 @@
 ## APP logic
  - user:
     - upon login, redirect to pianos (pianos.html)
-
     - user can ~~search~~ choose any piano on pianos.html and get redirected to pianos/<piano-name>.html
-
     - user can edit piano details and save changes (the data is pre-filled with geolocation but gives the possibility to change them manually)
-
     - user sees piano details with a location map after saving changes
 
 - admin:
