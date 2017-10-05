@@ -20,14 +20,6 @@
 
     - user sees piano details with a location map after saving changes
 
-      ​
-
-    - user can click any admins on adminslist.html and route to
-
-      admins/id(admin_detail.html)
-
-    - superuser can edit or delete an admin on admin_detail.html
-
 - admin:
     - redirect to homepage home.html with options to 
       - CRUD users
@@ -39,7 +31,6 @@
     - admin can edit or delete a piano on pianos/<piano-name>.html
     - embed google map on pianos/<piano-name>.html if the piano has geolocation data in the database
     - admin can create an admin by click 'add admin' on a homepage or navigation menu
-
 - navigation:
 
     - List:	
@@ -50,18 +41,17 @@
         - add admin: admins/add.html (only display to admins)
         - add user: users/add.html (TODO: ask Al if users can see it)
         - add piano: pianos/add.html (display to all authenticated users)
-
 - JSON data
-
-    - generate JSON file that can be pulled by AL to be used in mobile apps (/pianos/json)
+    - generate JSON file that can be pushed to a repo used by mobile apps (/pianos/json) 
 
 ## To learn:
 
 * JavaScript
 * Geolocation (JS or HTML5)
-* Uploading files
+* Uploading images
 * Create JSON file
 * (Stretch: auto-crop files for different screens, on a server)
+* Update Github via python script (for JSON file) [https://developer.github.com/v3/repos/contents/#update-a-file](https://developer.github.com/v3/repos/contents/#update-a-file) 
 
 
 
@@ -70,6 +60,7 @@
 - Flask framework
 - Jinja2 templates 
 - SQLAlchemy
+- Flask-Admin
 - Flask-Migrate: db migration
 - Flask-Login: user auth
 - Flask-Bcrypt: hash password
