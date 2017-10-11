@@ -2,3 +2,4 @@
 .cache
 __py*
 db_*
+.idea*
