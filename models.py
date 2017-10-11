@@ -10,7 +10,7 @@ class Piano(db.Model):
     geolong = db.Column(db.Float, nullable=False)
     update_date = db.Column(db.DateTime, server_default=None)
     is_active = db.Column(db.Boolean, default=True)
-    admin_id = db.Column(db.Integer, ForeignKey('admin.id'))
+    user_id = db.Column(db.Integer, ForeignKey('user.id'))
     
     def __init__(self, name, geolat, geolong,update_date, admin_id):
         pass
@@ -22,13 +22,13 @@ class Piano(db.Model):
         return '{} @ ({}, {})'.format(self.name, self.geolat,self.geolong)
 
 
-class Admin(db.Model):
+class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(120), unique=True)
     email = db.Column(db.String(120), unique=True)
     password = db.Column(db.String(560))
     is_superuser = db.Column(db.Boolean(), default=False)
-    pianos = relationship("Piano", backref="admin")
+    pianos = relationship("Piano", backref="user")
 
     def __init__(self, name, email, password):
         self.name = name

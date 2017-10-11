@@ -1,46 +1,48 @@
 # Admin UI for [Piano. Push. Play.](http://www.pianopushplay.com)
 
 ## App overview
-### user / volunteer
-
- - CRUD pianos (TODO: clarify with Al, if volunteer can CRUD or just \_RU\_ )
-### administrator / admin
+### volunteer
+ - CRUD pianos 
+### administrator(admin)
  - CRUD pianos
  - CRUD users
  - CRUD other admins (stretch goal)
 
 
 ## APP logic
- - user:
-    - upon login, redirect to pianos (pianos.html)
-    - user can ~~search~~ choose any piano on pianos.html and get redirected to pianos/<piano-name>.html
-    - user can edit piano details and save changes (the data is pre-filled with geolocation but gives the possibility to change them manually)
-    - user sees piano details with a location map after saving changes
+### Generics:
+1. On pianos.html/volunteers.html, any authed user can search with certain keywords
+2. BASE_DIR : piaons.herokuapp.com(for example)
+3. volunteers.html only show to admins
+4. pianos.html shows to all authenticated parties
+5. unauthed parties login go to pianos_on_map.html which is a map with all displayable pianos' location(route: BASE_DIR/) 
+5. pianos API will be available at BASE_DIR/api/v1.0/pianos/
 
-- admin:
-    - redirect to homepage home.html with options to 
-      - CRUD users
-      - CRUD pianos (flow just like users see)
-      - CRUD admins (stretch)
-    - admin can do all the tasks that user can do for pianos (TODO: plus create and delete, depends what Al says from TODO 1)
-    - admin can add piano by clicking 'add piano' on a homepage or navigation menu 
-    - admin can add users by clicking 'add user' on a homepage or navigation menu 
-    - admin can edit or delete a piano on pianos/<piano-name>.html
-    - embed google map on pianos/<piano-name>.html if the piano has geolocation data in the database
-    - admin can create an admin by click 'add admin' on a homepage or navigation menu
-- navigation:
-
-    - List:	
-        - admins: admins.html (only display to admins)
-        - users: users.html (TODO: ask Al if users can see it)
-        - pianos: pianos.html (display to all authenticated users)
-    - Add:
-        - add admin: admins/add.html (only display to admins)
-        - add user: users/add.html (TODO: ask Al if users can see it)
-        - add piano: pianos/add.html (display to all authenticated users)
-- JSON data
-    - generate JSON file that can be pushed to a repo used by mobile apps (/pianos/json) 
-
+<hr>
+ - tasks for volunteers(vols):
+    - login, goes to pianos.html with hyperlinked piano titles (route: admin/pianos)
+    - click each piano on pianos.html and goes to piano_detail.html(route: admin/pianos/<int: piano_id>)
+    - edit piano on piano_detail.html(route: admin/pianos/<int:piano_id>)
+        - piano_detail.html load with google map pined with current location
+        - after done editing, redirect to piano_detail.html(route: admin/pianos/<int: pianos_id>) after done editing
+   <hr> 
+- tasks for administrators(admins):
+    - login, goes to volunteers.html(route: admin/volunteers)  
+    - add vol: click 'add volunteer' on volunteers.html goes to volunteer_add.html (route:admin/volunteers/add)
+        - after done adding, redirect to volunteer_detail.html(route: admin/volunteers/<int: vol_id>)
+    - edit vol: click any vols on volunteers.html, goes to volunteer_detail.html(route: admin/volunteers/<int: vol_id>) 
+        - after done editing, redirect to volunteer_detail.html(route: admin/volunteers/<int: vol_id>)
+    - delete vol: click 'delete' on any volunteer_detail.html(route: admin/volunteers/<int: vol_id>) to deactive vols
+        - after done delete, redirect to volunteers.html(route:admin/volunteers)
+    <hr/>
+    - add piano: click 'add pianos' on pianos.html goes to pianos_add.html (route:admin/pianos/add)
+        - after done adding, redirect to piano_detail.html(route: admin/pianos/<int: piano_id>)
+    - edit piano: click any pianos on pianos.html, goes to pianos_detail.html(route: admin/pianos/<int: piano_id>) 
+        - piano_detail.html load with google map pined with current location
+        - after done editing, redirect to pianos_detail.html(route: admin/pianos/<int: piano_id>)
+    - delete pianos: click 'delete' on any pianos_detail.html(route: admin/pianos/<int: piano_id>) to deactive pianos
+        - after done delete, redirect to pianos.html(route:admin/pianos)
+ 
 ## To learn:
 
 * JavaScript
@@ -51,21 +53,17 @@
 * Update Github via python script (for JSON file) [https://developer.github.com/v3/repos/contents/#update-a-file](https://developer.github.com/v3/repos/contents/#update-a-file) 
 
 
-
 ## Technology used
 
 - Flask framework
-- Jinja2 templates 
-- SQLAlchemy
 - Flask-Admin
+- flask-security
 - Flask-Migrate: db migration
-- Flask-Login: user auth
 - Flask-Bcrypt: hash password
-- WTForms: form validation
 - Bootstrap 4 
 - JavaScript: get geoLocation (HTML5 Geolocation API might be a better choice, TODO: check mobile browsers support )
 - AJAX: send data to back end (or just use form) ???
-
+    
 
 ## How to contribute
 ```
@@ -79,6 +77,7 @@ export DATABASE_URL='connection-to-your-db'
 eg. :
 export DATABASE_URL='mysql+pymysql://user:password@host:port/db_name'
 
+python manage.py db init
 python manage.py db migrate
 python manage.py db upgrade
 
