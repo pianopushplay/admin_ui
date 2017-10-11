@@ -3,3 +3,4 @@
 __py*
 db_*
 .idea/*
+workspace.xml
