@@ -2,9 +2,4 @@
 .cache
 __py*
 db_*
-<<<<<<< HEAD
-.idea*
-=======
-
 .idea/*
->>>>>>> flask-admin
