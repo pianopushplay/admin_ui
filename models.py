@@ -11,7 +11,7 @@ class Piano(db.Model):
     update_date = db.Column(db.DateTime, server_default=None)
     is_active = db.Column(db.Boolean, default=True)
     user_id = db.Column(db.Integer, ForeignKey('user.id'))
-    
+
     def __init__(self, name, geolat, geolong,update_date, admin_id):
         pass
 

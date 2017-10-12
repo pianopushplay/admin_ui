@@ -1,5 +1,8 @@
 from app import app, bcrypt, db
 from flask import Flask, request, redirect, render_template, session, flash, url_for, make_response
+from flask_admin import Admin
+from flask_admin.contrib.sqla import ModelView
+from models import *
 
 # from models import Post, User
 # from forms import LoginForm, RegisterForm, NewPostForm
@@ -8,3 +11,8 @@ from flask_login import login_user, login_required, logout_user, LoginManager, c
 @app.route('/')
 def index():
     return 'hello, piano'
+
+
+admin = Admin(app, name='pianos', template_mode='bootstrap3')
+admin.add_view(ModelView(User, db.session))
+admin.add_view(ModelView(Piano, db.session))

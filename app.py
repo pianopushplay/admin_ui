@@ -1,7 +1,6 @@
 from flask_sqlalchemy import get_debug_queries, SQLAlchemy, Pagination
 from flask import Flask
 from flask_bcrypt import Bcrypt
-from flask_admin import Admin
 
 app = Flask(__name__)
 app.config.from_object("config.DevelopmentConfig")
@@ -11,7 +10,6 @@ db = SQLAlchemy(app)
 
 from views import *
 
-admin = Admin(app, name='pianos', template_mode='bootstrap3')
 
 
 def sql_debug(response):
