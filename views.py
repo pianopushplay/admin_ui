@@ -11,7 +11,7 @@ security = Security(app, user_datastore)
 
 
 # Create customized model view class
-class dgBaseView(ModelView):
+class PianoBaseView(ModelView):
 
     column_display_pk = True
     page_size = 20
@@ -32,15 +32,13 @@ class dgBaseView(ModelView):
                 return redirect(url_for('security.login', next=request.url))
 
 
-class regularRbacView(dgBaseView):
-
+class VolunteerView(PianoBaseView):
+    can_export = False
     def is_accessible(self):
-
         # set accessibility...
         if not current_user.is_active or not current_user.is_authenticated:
             return False
-
-            # roles with ascending permissions...
+        # roles with ascending permissions...
         if current_user.has_role('superuser'):
             self.can_create = True
             self.can_edit = True
@@ -51,15 +49,11 @@ class regularRbacView(dgBaseView):
             self.can_edit = True
             self.can_delete = False
             self.can_create = False
-            return True
-        
+            return True        
         return False
 
 
-class SuperView(dgBaseView):
-
-    can_export = True
-
+class AdminView(PianoBaseView):
     def is_accessible(self):
         if not current_user.is_active or not current_user.is_authenticated:
             return False
@@ -70,39 +64,6 @@ class SuperView(dgBaseView):
             #self.can_export = True
             return True
         return False
-
-class PianoAdminIndexView(AdminIndexView):
-    """
-    This does the trick rendering the view only if the user is authenticated
-    """
-    column_display_pk = True
-    page_size = 20
-    can_view_details = True
-    
-    def is_accessible(self):
-        if not current_user.is_active or not current_user.is_authenticated:
-            return False
-
-        if current_user.has_role('superuser'):
-            return True
-
-        return False
-
-    def _handle_view(self, name, **kwargs):
-        """
-        Override builtin _handle_view in order to redirect users when a view is not accessible.
-        """
-        if not self.is_accessible():
-            if current_user.is_authenticated:
-                # permission denied
-                abort(403)
-            else:
-                # login
-                return redirect(url_for('security.login', next=request.url))
-
-@app.route('/')
-def index():
-    return render_template('index.html')
 
 
 admin = Admin(
@@ -125,6 +86,11 @@ def security_context_processor():
     )
 
 
-admin.add_view(SuperView(User, db.session))
-admin.add_view(SuperView(Role, db.session))
-admin.add_view(ModelView(Piano, db.session))
+admin.add_view(AdminView(User, db.session))
+admin.add_view(AdminView(Role, db.session))
+admin.add_view(VolunteerView(Piano, db.session))
+
+
+@app.route('/')
+def index():
+    return render_template('index.html')
