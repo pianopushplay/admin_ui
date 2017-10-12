@@ -73,6 +73,8 @@ cd admin_ui
 conda create -n yourenv
 source activate yourenv
 
+create your database db_name
+
 export DATABASE_URL='connection-to-your-db'
 eg. :
 export DATABASE_URL='mysql+pymysql://user:password@host:port/db_name'
