@@ -24,15 +24,9 @@ class User(db.Model, UserMixin):
     email = db.Column(db.String(255), unique=True)
     password = db.Column(db.String(255))
     active = db.Column(db.Boolean())
-    # confirmed_at = db.Column(db.DateTime())
     roles = db.relationship('Role', secondary=roles_users,
                             backref=db.backref('users', lazy='dynamic'))
     pianos = relationship("Piano", backref="user")
-
-    # def __init__(self, name, email, password):
-    #     self.name = name
-    #     self.email = email
-    #     self.password = bcrypt.generate_password_hash(password)
 
     def __repr__(self):
         return self.email
@@ -40,18 +34,16 @@ class User(db.Model, UserMixin):
 
 class Piano(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(120), nullable=False)
-    geolat = db.Column(db.Float, nullable=False)
-    geolong = db.Column(db.Float, nullable=False)
+    title = db.Column(db.String(120), nullable=False)
+    lat = db.Column(db.Float, nullable=False)
+    lon = db.Column(db.Float, nullable=False)
+    bio = db.Column(db.Text, nullable=False)
     update_date = db.Column(db.DateTime, server_default=None)
+    img = db.Column(db.String(120), nullable=True)
+    url = db.Column(db.String(120), nullable=True)
     is_active = db.Column(db.Boolean, default=True)
     user_id = db.Column(db.Integer, ForeignKey('user.id'))
 
-    # def __init__(self, name, geolat, geolong,update_date):
-    #     pass
-
-    def img(self, size):
-        pass
 
     def __repr__(self):
         return '{} @ ({}, {})'.format(self.name, self.geolat,self.geolong)

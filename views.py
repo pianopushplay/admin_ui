@@ -81,10 +81,10 @@ class PianoView(PianoBaseView):
     # form_create_rules = ['name', 'geolat', rules.Text('Foobar'), 'geolong']
     # form = PianoForm
     can_export = False
-    column_editable_list = ['geolat', 'geolong']
+    column_editable_list = ['lat', 'lon']
     # column_exclude_list = ['is_active', ]
-    column_searchable_list = ['name', 'geolat', 'geolong',]
-    column_sortable_list = ['name']
+    column_searchable_list = ['title', 'lat', 'lon']
+    column_sortable_list = ['title']
     edit_template = 'piano/edit_piano.html'
 
     # edit_modal = True
@@ -135,7 +135,7 @@ admin.add_view(PianoView(Piano, db.session))
 
 
 
-app.route('/')
+@app.route('/')
 def index():
     pianos = Piano.query.filter_by(is_active=True)
     return render_template('index.html', pianos=pianos)
