@@ -1,4 +1,5 @@
 from flask_admin import Admin, AdminIndexView, helpers as admin_helpers
+from flask_admin.form import SecureForm, rules
 from flask_admin.contrib.sqla import ModelView
 from flask_security import Security, SQLAlchemyUserDatastore, login_required, current_user
 from flask import redirect, render_template, request, url_for, abort
@@ -19,6 +20,8 @@ class PianoBaseView(ModelView):
     #can_export = False
     can_export = True
 
+
+
     def _handle_view(self, name, **kwargs):
         """
         Override builtin _handle_view in order to redirect users when a view is not accessible.
@@ -33,6 +36,7 @@ class PianoBaseView(ModelView):
 
 
 class VolunteerView(PianoBaseView):
+    form_base_class = SecureForm
     can_export = False
     def is_accessible(self):
         # set accessibility...
@@ -49,11 +53,12 @@ class VolunteerView(PianoBaseView):
             self.can_edit = True
             self.can_delete = False
             self.can_create = False
-            return True        
+            return True
         return False
 
 
 class AdminView(PianoBaseView):
+    form_base_class = SecureForm
     def is_accessible(self):
         if not current_user.is_active or not current_user.is_authenticated:
             return False
@@ -66,9 +71,47 @@ class AdminView(PianoBaseView):
         return False
 
 
+class RoleView(AdminView):
+    column_searchable_list = ['name']
+
+
+
+class PianoView(PianoBaseView):
+    form_base_class = SecureForm
+    # form_create_rules = ['name', 'geolat', rules.Text('Foobar'), 'geolong']
+    # form = PianoForm
+    can_export = False
+    column_editable_list = ['geolat', 'geolong']
+    # column_exclude_list = ['is_active', ]
+    column_searchable_list = ['name', 'geolat', 'geolong',]
+    column_sortable_list = ['name']
+    edit_template = 'piano/edit_piano.html'
+
+    # edit_modal = True
+    def is_accessible(self):
+        # set accessibility...
+        if not current_user.is_active or not current_user.is_authenticated:
+            return False
+
+        # roles with ascending permissions...
+        if current_user.has_role('superuser'):
+            self.can_create = True
+            self.can_edit = True
+            self.can_delete = False
+            return True
+
+        if current_user.has_role('volunteer'):
+            self.can_edit = True
+            self.can_delete = False
+            self.can_create = False
+            return True
+        return False
+
+
+
 admin = Admin(
-    app, 
-    name='pianos', 
+    app,
+    name='pianos',
     template_mode='bootstrap3',
     base_template='piano_master.html',
     )
@@ -87,10 +130,13 @@ def security_context_processor():
 
 
 admin.add_view(AdminView(User, db.session))
-admin.add_view(AdminView(Role, db.session))
-admin.add_view(VolunteerView(Piano, db.session))
+admin.add_view(RoleView(Role, db.session))
+admin.add_view(PianoView(Piano, db.session))
 
 
-@app.route('/')
+
+app.route('/')
 def index():
-    return render_template('index.html')
+    pianos = Piano.query.filter_by(is_active=True)
+    return render_template('index.html', pianos=pianos)
+

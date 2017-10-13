@@ -1,0 +1,35 @@
+{% extends 'admin/model/edit.html' %}
+
+{% block body %}
+    <h1></h1>
+    {{ super() }}
+<hr/>
+<div class="lead">
+    <p>Change geolat and geolong in above form by clicking below button</p>
+    <p>Or manually enter geolat and gelong by not clicking below button</p>
+    <button onclick="getLocation()" class="btn btn-success">Change Location</button>
+    <p id="geo"></p>
+
+<script>
+var x = document.getElementById("geo");
+
+function getLocation() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showPosition);
+    } else {
+        x.innerHTML = "Geolocation is not supported by this browser.";
+    }
+}
+
+function showPosition(position) {
+    x.innerHTML = "Your current location: <br>Latitude: " + position.coords.latitude +
+    "<br>Longitude: " + position.coords.longitude;
+
+    document.getElementById("geolat").value = position.coords.latitude;
+    document.getElementById("geolong").value = position.coords.longitude;
+}
+
+</script>
+</div>
+
+{% endblock %}
