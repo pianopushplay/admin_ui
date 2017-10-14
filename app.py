@@ -3,7 +3,7 @@ from flask import Flask
 from flask_bcrypt import Bcrypt
 
 app = Flask(__name__)
-app.config.from_object("config.DevelopmentConfig")
+app.config.from_object("config.BaseConfig")
 
 bcrypt = Bcrypt(app)
 db = SQLAlchemy(app)
