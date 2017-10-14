@@ -15,9 +15,9 @@
     <div id="piano_data">
         <ul>
         {% for piano in pianos %}
-            <li>{{ piano.name }}</li>
-            <li>{{ piano.geolat }}</li>
-            <li>{{ piano.geolong }}</li>
+            <li>{{ piano.title }}</li>
+            <li>{{ piano.lat }}</li>
+            <li>{{ piano.lon }}</li>
             <br>
         {% endfor %}
         </ul>
