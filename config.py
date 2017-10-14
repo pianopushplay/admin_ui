@@ -6,6 +6,8 @@ class BaseConfig(object):
     DEBUG = False
     SECRET_KEY = '\xcb\xa2\x92\xa206]\xd0\xdb\xfe\x9e\xa0\xab\x9d\xc4@\xd0\xf1\xa4\x15\xab\x1a)\xca'
     SQLALCHEMY_DATABASE_URI = os.environ['DATABASE_URL']
+    # SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://adrianacmy:adrianacmy$pianoadmin@adrianacmy.mysql.pythonanywhere-services.com/adrianacmy$pianoadmin'
+
 
     # Flask-Security config
     SECURITY_URL_PREFIX = "/admin"

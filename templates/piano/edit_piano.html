@@ -1,7 +1,6 @@
 {% extends 'admin/model/edit.html' %}
 
 {% block body %}
-    <h1></h1>
     {{ super() }}
 <hr/>
 <div class="lead">
@@ -12,22 +11,31 @@
 
 <script>
 var x = document.getElementById("geo");
+var options = {
+  enableHighAccuracy: true,
+  timeout: 5000,
+  maximumAge: 0
+};
 
 function getLocation() {
     if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(showPosition);
+        navigator.geolocation.getCurrentPosition(success, error, options);
     } else {
         x.innerHTML = "Geolocation is not supported by this browser.";
     }
-}
+};
 
-function showPosition(position) {
+function success(position) {
     x.innerHTML = "Your current location: <br>Latitude: " + position.coords.latitude +
     "<br>Longitude: " + position.coords.longitude;
 
     document.getElementById("lat").value = position.coords.latitude;
     document.getElementById("lon").value = position.coords.longitude;
-}
+};
+
+function error(err) {
+  x.innerHTML='something is wrong';
+};
 
 </script>
 </div>
