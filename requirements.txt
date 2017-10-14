@@ -49,7 +49,7 @@ PyMySQL==0.7.9
 python-dateutil==2.6.0
 python-editor==1.0.3
 python-slugify==1.2.4
-python=3.6.2
+python_version==3.6.2
 pytimeparse==1.1.6
 pytz==2017.2
 requests==2.9.1
