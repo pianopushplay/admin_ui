@@ -81,7 +81,7 @@ export DATABASE_URL='mysql+pymysql://user:password@host:port/db_name'
 
 python manage.py db upgrade
 
-create a superuser manually
+create a superuser manually 
 
 git checkout -b the_issue_you_want_to_work_on
 ```
