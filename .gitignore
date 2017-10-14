@@ -4,3 +4,6 @@ __py*
 db_*
 .idea/*
 workspace.xml
+Procfile
+runtime.txt
+db_create_user.py
