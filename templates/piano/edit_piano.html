@@ -25,16 +25,21 @@ function success(position) {
     document.getElementById("lon").value = position.coords.longitude;
 };
 
-function error(err) {
-  if(err.code === 1){
-    alert("Access is denied!");
-  }else if(err.code === 2){
-    alert(" Position is unavailable!");
-  }else if(err.code === 3){
-    alert("Takes to long to get location.");
-  }else{
-    x.innerHTML = err;
-  }
+function error(error) {
+     switch(error.code) {
+            case error.PERMISSION_DENIED:
+                x.innerHTML = "User denied the request for Geolocation."
+                break;
+            case error.POSITION_UNAVAILABLE:
+                x.innerHTML = "Location information is unavailable."
+                break;
+            case error.TIMEOUT:
+                x.innerHTML = "The request to get user location timed out."
+                break;
+            case error.UNKNOWN_ERROR:
+                x.innerHTML = "An unknown error occurred."
+                break;
+        }
 };
 
 function getLocation() {
