@@ -35,9 +35,10 @@ class PianoBaseView(ModelView):
                 return redirect(url_for('security.login', next=request.url))
 
 
-class VolunteerView(PianoBaseView):
+class PianoView(PianoBaseView):
     form_base_class = SecureForm
     can_export = False
+    edit_template = 'piano/edit_piano.html'
     def is_accessible(self):
         # set accessibility...
         if not current_user.is_active or not current_user.is_authenticated:
@@ -75,40 +76,6 @@ class RoleView(AdminView):
     column_searchable_list = ['name']
 
 
-
-class PianoView(PianoBaseView):
-    form_base_class = SecureForm
-    # form_create_rules = ['name', 'geolat', rules.Text('Foobar'), 'geolong']
-    # form = PianoForm
-    can_export = False
-    column_editable_list = ['lat', 'lon']
-    # column_exclude_list = ['is_active', ]
-    column_searchable_list = ['title', 'lat', 'lon']
-    column_sortable_list = ['title']
-    edit_template = 'piano/edit_piano.html'
-
-    # edit_modal = True
-    def is_accessible(self):
-        # set accessibility...
-        if not current_user.is_active or not current_user.is_authenticated:
-            return False
-
-        # roles with ascending permissions...
-        if current_user.has_role('superuser'):
-            self.can_create = True
-            self.can_edit = True
-            self.can_delete = False
-            return True
-
-        if current_user.has_role('volunteer'):
-            self.can_edit = True
-            self.can_delete = False
-            self.can_create = False
-            return True
-        return False
-
-
-
 admin = Admin(
     app,
     name='pianos',
@@ -132,7 +99,6 @@ def security_context_processor():
 admin.add_view(AdminView(User, db.session))
 admin.add_view(RoleView(Role, db.session))
 admin.add_view(PianoView(Piano, db.session))
-
 
 
 @app.route('/')

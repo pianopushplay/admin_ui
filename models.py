@@ -46,7 +46,7 @@ class Piano(db.Model):
 
 
     def __repr__(self):
-        return '{} @ ({}, {})'.format(self.name, self.geolat,self.geolong)
+        return '{} @ ({}, {})'.format(self.title, self.lat,self.lon)
 
 
 
