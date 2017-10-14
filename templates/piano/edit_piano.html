@@ -27,12 +27,10 @@ function success(position) {
 
 function error(err) {
   if(err.code === 1){
-    alert("You denied to get location.");
-  }
-  if(err.code === 2){
-    alert("Unable to get location.");
-  }
-  if(err.code === 3){
+    alert("Access is denied!");
+  }else if(err.code === 2){
+    alert(" Position is unavailable!");
+  }else if(err.code === 3){
     alert("Takes to long to get location.");
   }else{
     x.innerHTML = err;
