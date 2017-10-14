@@ -37,22 +37,6 @@
         });
       }
 
-      document.getElementById("get_location").onclick = function(){
-            var success = function(pos){
-                var lat = pos.coords.latitude,
-                long = pos.coords.longitude,
-                coords = lat + ", " + long;
-                alert(coords);
-            }
-            var error = function(pos){
-                alert("?")
-                }
-            if(geolocation.init()){
-                geoPosition.getCurrentPosition(success,error)
-            }
-            return false;
-        }
-
     </script>
     <script async defer
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCIegMYBA5X870rGRqwORr5iCgYD2BLyyE&callback=initMap">
