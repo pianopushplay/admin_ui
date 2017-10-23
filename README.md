@@ -91,12 +91,24 @@ export DATABASE_URL='connection-to-your-db'
 e.g.:
 export DATABASE_URL='mysql+pymysql://user:password@host:port/db_name'
 ```
-4. Run `manage.py`
+4. Run `manage.py` to create tables
 ```bash
 python manage.py db upgrade
 ```
-5. Create a superuser manually via phpMyAdmin
+If you get an error similar to this: 
+
+```bash
+sqlalchemy.exc.InternalError: (pymysql.err.InternalError) (1130, "Host '127.0.0.1' is not allowed to connect to this MySQL server")
+```
+
+create database at 127.0.0.1 not the usual localhost.
+
+5. Create a superuser manually via phpMyAdmin or mysql shell
+   * create **superuser** and **volunteer** roles in `role` table
+   * create a new **user** in `user` table
+   * create a row in `roles_users` with the **user's id** and the **superuser id**
 6. Run server:
+
 ```bash
 python manage.py runserver 
 ```
