@@ -34,15 +34,18 @@ class User(db.Model, UserMixin):
 
 class Piano(db.Model):
     id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(120))
     title = db.Column(db.String(120), nullable=False)
-    lat = db.Column(db.Float, nullable=False)
-    lon = db.Column(db.Float, nullable=False)
-    bio = db.Column(db.Text, nullable=False)
+    lat = db.Column(db.Float)
+    lon = db.Column(db.Float)
+    bio = db.Column(db.Text)
     update_date = db.Column(db.DateTime, server_default=None)
-    img = db.Column(db.String(120), nullable=True)
+    image = db.Column(db.String(120), nullable=True)
     url = db.Column(db.String(120), nullable=True)
-    is_active = db.Column(db.Boolean, default=True)
+    active = db.Column(db.Boolean, default=True)
     user_id = db.Column(db.Integer, ForeignKey('user.id'))
+
+
 
 
     def __repr__(self):
