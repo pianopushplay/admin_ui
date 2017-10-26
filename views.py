@@ -1,8 +1,18 @@
-from flask_admin import Admin, AdminIndexView, helpers as admin_helpers
+import os
+import os.path as op
+
+from flask_admin import Admin, AdminIndexView, form, helpers as admin_helpers
 from flask_admin.form import SecureForm, rules
 from flask_admin.contrib.sqla import ModelView
+
 from flask_security import Security, SQLAlchemyUserDatastore, login_required, current_user
+
 from flask import redirect, render_template, request, url_for, abort
+
+from sqlalchemy.event import listens_for
+
+from jinja2 import Markup
+
 from models import *
 from app import app, db
 
@@ -11,13 +21,32 @@ user_datastore = SQLAlchemyUserDatastore(db, User, Role)
 security = Security(app, user_datastore)
 
 
-# Create customized model view class
-class PianoBaseView(ModelView):
+# define a context processor for merging flask-admin's template context into the
+# flask-security views.
+@security.context_processor
+def security_context_processor():
+    return dict(
+        admin_base_template=admin.base_template,
+        admin_view=admin.index_view,
+        h=admin_helpers,
+        get_url=url_for
+    )
 
+
+# Create directory for file fields to use
+file_path = op.join(op.dirname(__file__), 'files')
+try:
+    os.mkdir(file_path)
+except OSError:
+    pass
+
+
+# Create customized model view class
+class BaseViewAdmin(ModelView):
+    form_base_class = SecureForm
     column_display_pk = True
     page_size = 20
     can_view_details = True
-    #can_export = False
     can_export = True
 
     def _handle_view(self, name, **kwargs):
@@ -33,10 +62,21 @@ class PianoBaseView(ModelView):
                 return redirect(url_for('security.login', next=request.url))
 
 
-class PianoView(PianoBaseView):
-    form_base_class = SecureForm
-    can_export = False
-    edit_template = 'piano/edit_piano.html'
+class SuperuserViewAdmin(BaseViewAdmin):
+    def is_accessible(self):
+        # set accessibility...
+        if not current_user.is_active or not current_user.is_authenticated:
+            return False
+        # roles with ascending permissions...
+        if current_user.has_role('superuser'):
+            self.can_create = True
+            self.can_edit = True
+            self.can_delete = True
+            return True
+        return False
+
+
+class VolunteerViewAdmin(BaseViewAdmin):
     def is_accessible(self):
         # set accessibility...
         if not current_user.is_active or not current_user.is_authenticated:
@@ -52,26 +92,57 @@ class PianoView(PianoBaseView):
             self.can_edit = True
             self.can_delete = False
             self.can_create = False
+            self.can_export = False
             return True
         return False
 
 
-class AdminView(PianoBaseView):
-    form_base_class = SecureForm
-    def is_accessible(self):
-        if not current_user.is_active or not current_user.is_authenticated:
-            return False
-        if current_user.has_role('superuser'):
-            self.can_create = True
-            self.can_edit = True
-            self.can_delete = True
-            #self.can_export = True
-            return True
-        return False
+class PianoViewAdmin(VolunteerViewAdmin):
+    edit_template = 'piano/edit_piano.html'
 
 
-class RoleView(AdminView):
+class RoleViewAdmin(SuperuserViewAdmin):
     column_searchable_list = ['name']
+
+
+class ImageViewAdmin(VolunteerViewAdmin):
+    def _list_thumbnail(view, context, model, name):
+        if not model.path:
+            return ''
+
+        return Markup('<img src="%s">' % url_for('static',
+                                                 filename=form.thumbgen_filename(model.path)))
+
+    column_formatters = {
+        'path': _list_thumbnail
+    }
+
+    # Alternative way to contribute field is to override it completely.
+    # In this case, Flask-Admin won't attempt to merge various parameters for the field.
+    form_extra_fields = {
+        'path': form.ImageUploadField('Image',
+                                      base_path=file_path,
+                                      thumbnail_size=(100, 100, True))
+    }
+
+
+
+@listens_for(Image, 'after_delete')
+def del_image(mapper, connection, target):
+    if target.path:
+        # Delete image
+        try:
+            os.remove(op.join(file_path, target.path))
+        except OSError:
+            pass
+
+        # Delete thumbnail
+        try:
+            os.remove(op.join(file_path,
+                              form.thumbgen_filename(target.path)))
+        except OSError:
+            pass
+
 
 
 admin = Admin(
@@ -81,26 +152,14 @@ admin = Admin(
     base_template='piano_master.html',
     )
 
-
-# define a context processor for merging flask-admin's template context into the
-# flask-security views.
-@security.context_processor
-def security_context_processor():
-    return dict(
-        admin_base_template=admin.base_template,
-        admin_view=admin.index_view,
-        h=admin_helpers,
-        get_url=url_for
-    )
-
-
-admin.add_view(AdminView(User, db.session))
-admin.add_view(RoleView(Role, db.session))
-admin.add_view(PianoView(Piano, db.session))
+admin.add_view(SuperuserViewAdmin(User, db.session))
+admin.add_view(RoleViewAdmin(Role, db.session))
+admin.add_view(PianoViewAdmin(Piano, db.session))
+admin.add_view(ImageViewAdmin(Image, db.session))
 
 
 @app.route('/')
 def index():
-    pianos = Piano.query.filter_by(is_active=True)
+    pianos = Piano.query.filter_by(active=True)
     return render_template('index.html', pianos=pianos)
 

@@ -1,14 +1,16 @@
+
 from flask_sqlalchemy import get_debug_queries, SQLAlchemy, Pagination
 from flask import Flask
 from flask_bcrypt import Bcrypt
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder='files')
 app.config.from_object("config.BaseConfig")
 
 bcrypt = Bcrypt(app)
 db = SQLAlchemy(app)
 
 from views import *
+
 
 
 

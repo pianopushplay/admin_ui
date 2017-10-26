@@ -3,6 +3,9 @@ from sqlalchemy import Boolean, DateTime, Column, Integer, \
                        String, ForeignKey
 from flask_security import UserMixin, RoleMixin
 
+
+
+
 from app import db, bcrypt
 
 roles_users = db.Table('roles_users',
@@ -18,11 +21,14 @@ class Role(db.Model, RoleMixin):
     def __repr__(self):
         return self.name
 
-
 class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
+    first_name = db.Column(db.String(120))
+    last_name = db.Column(db.String(120))
     email = db.Column(db.String(255), unique=True)
     password = db.Column(db.String(255))
+    phone = db.Column(db.String(120))
+    city = db.Column(db.String(120))
     active = db.Column(db.Boolean())
     roles = db.relationship('Role', secondary=roles_users,
                             backref=db.backref('users', lazy='dynamic'))
@@ -40,17 +46,22 @@ class Piano(db.Model):
     lon = db.Column(db.Float)
     bio = db.Column(db.Text)
     update_date = db.Column(db.DateTime, server_default=None)
-    image = db.Column(db.String(120), nullable=True)
     url = db.Column(db.String(120), nullable=True)
     active = db.Column(db.Boolean, default=True)
     user_id = db.Column(db.Integer, ForeignKey('user.id'))
-
-
-
+    images = relationship("Image", backref="piano")
 
     def __repr__(self):
         return '{} @ ({}, {})'.format(self.title, self.lat,self.lon)
 
+
+class Image(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.Unicode(64))
+    path = db.Column(db.Unicode(128))
+    piano_id = db.Column(db.Integer, ForeignKey('piano.id'))
+    def __repr__(self):
+        return self.name
 
 
 
