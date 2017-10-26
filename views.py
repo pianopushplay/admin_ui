@@ -1,20 +1,26 @@
 import os
 import os.path as op
 
-from flask_admin import Admin, AdminIndexView, form, helpers as admin_helpers
+from flask_admin import Admin, AdminIndexView, form, expose, helpers as admin_helpers
 from flask_admin.form import SecureForm, rules
 from flask_admin.contrib.sqla import ModelView
 
 from flask_security import Security, SQLAlchemyUserDatastore, login_required, current_user
 
-from flask import redirect, render_template, request, url_for, abort
+from flask import redirect, render_template, request, url_for, abort, jsonify
 
 from sqlalchemy.event import listens_for
 
 from jinja2 import Markup
 
+
+
 from models import *
 from app import app, db
+
+from flask_restful import Resource, Api
+api = Api(app)
+
 
 # Setup Flask-Security
 user_datastore = SQLAlchemyUserDatastore(db, User, Role)
@@ -158,8 +164,20 @@ admin.add_view(PianoViewAdmin(Piano, db.session))
 admin.add_view(ImageViewAdmin(Image, db.session))
 
 
+# pianos api
+class PianoList(Resource):
+    def get(self):
+        pianos = Piano.query.filter_by(active=True)
+        pianosJson = {}
+        for piano in pianos:
+            pianosJson[piano.name] = piano.json_dump()
+        return jsonify(pianosJson)
+
+api.add_resource(PianoList, '/api/v1.0/pianos')
+
+
+
 @app.route('/')
 def index():
     pianos = Piano.query.filter_by(active=True)
     return render_template('index.html', pianos=pianos)
-
