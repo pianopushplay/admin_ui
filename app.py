@@ -13,9 +13,6 @@ db = SQLAlchemy(app)
 from views import *
 
 
-
-
-
 def sql_debug(response):
     queries = list(get_debug_queries())
     query_str = ''

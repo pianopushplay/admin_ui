@@ -105,6 +105,7 @@ class VolunteerViewAdmin(BaseViewAdmin):
 
 class PianoViewAdmin(VolunteerViewAdmin):
     edit_template = 'piano/edit_piano.html'
+    create_template = 'piano/create_piano.html'
 
 
 class RoleViewAdmin(SuperuserViewAdmin):
