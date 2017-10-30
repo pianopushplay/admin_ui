@@ -171,7 +171,8 @@ class PianoList(Resource):
         pianos = Piano.query.filter_by(active=True)
         pianosJson = {}
         for piano in pianos:
-            pianosJson[piano.name] = piano.json_dump()
+            piano.name = piano.title.split("@")
+            pianosJson[piano.name[0]] = piano.json_dump()
         return jsonify(pianosJson)
 
 api.add_resource(PianoList, '/api/v1.0/pianos')
