@@ -4,22 +4,21 @@
 <div class="container">
     <div class="row">
         <div class="col-sm-10 col-sm-offset-1">
-            <h1>Yeah, pianos</h1>
-            <p class="lead">
-
-            </p>
+            <h1 class="text-center">Yeah, pianos</h1><br><br>
 
             {% if not current_user.is_authenticated %}
-            <p>You can register as a regular user, or log in with your superuser credentials</p>
-
+            <h3>Please log in with your credentials</h3>
             <p>
-                <a class="btn btn-primary" href="{{ url_for('security.login') }}">login</a> <a class="btn btn-default" href="{{ url_for('security.register') }}">register</a>
+                <br>
+                <a class="btn btn-primary form-control" href="{{ url_for('security.login') }}">login</a>
             </p>
             {% endif %}
+
             <p>
-                <a class="btn btn-primary" href="/"><i class="glyphicon glyphicon-chevron-left"></i> Back</a>
+                <a class="btn btn-primary form-control" href="/"><i class="glyphicon glyphicon-chevron-left"></i> Back</a>
             </p>
         </div>
     </div>
 </div>
+
 {% endblock body %}
