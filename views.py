@@ -83,6 +83,7 @@ class SuperuserViewAdmin(BaseViewAdmin):
 
 
 class VolunteerViewAdmin(BaseViewAdmin):
+    can_export = False
     def is_accessible(self):
         # set accessibility...
         if not current_user.is_active or not current_user.is_authenticated:
