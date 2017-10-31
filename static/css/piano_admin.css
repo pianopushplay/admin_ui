@@ -1,0 +1,17 @@
+
+
+#footer{
+    background: #422d1d;
+    color: #fff;
+    font-size: 1.5em;
+    padding-top: 0.5em;
+ }
+
+ #footer .row{
+    margin: 2.5em 0;
+ }
+
+#footer .copy {
+    background: #2d1f13;
+    padding: 0.8em 0;
+}

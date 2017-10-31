@@ -17,7 +17,7 @@ class BaseConfig(object):
     SECURITY_LOGIN_URL = "/login/"
     SECURITY_LOGOUT_URL = "/logout/"
 
-    SECURITY_POST_LOGIN_VIEW = "/admin/"
+    SECURITY_POST_LOGIN_VIEW = "/admin/piano"
     SECURITY_POST_LOGOUT_VIEW = "/"
 
     # Flask-Security features

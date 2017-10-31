@@ -2,10 +2,9 @@
 
 {% block body %}
     {{ super() }}
-<hr/>
-<div class="lead">
-    <p>Change geolat and geolong in above form by clicking below button</p>
-    <p>Or manually enter geolat and gelong by not clicking below button</p>
+<br><br>
+<div class="lead col-md-8 col-md-offset-2">
+    <p>Populate lon and lat fields by clicking below button or manually enter them.</p>
     <button onclick="getLocation()" class="btn btn-success">Get Location</button>
     <p id="geo"></p>
 

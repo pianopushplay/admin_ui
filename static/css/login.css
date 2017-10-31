@@ -1,0 +1,8 @@
+body {
+  color: green;
+  background: url("../images/other-than-piano/header.jpg") no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+  position: relative;
+}
+
