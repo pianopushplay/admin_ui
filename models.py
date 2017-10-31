@@ -46,7 +46,8 @@ class Piano(db.Model):
     url = db.Column(db.String(120), nullable=True)
     active = db.Column(db.Boolean, default=True)
     user_id = db.Column(db.Integer, ForeignKey('user.id'))
-    image = relationship("Image", uselist=False, backref="piano")
+    # image = relationship("Image", uselist=False, backref="piano")
+    image = db.Column(db.String(250), nullable=True, blank=True)
 
     def __repr__(self):
         return '{} @ ({}, {})'.format(self.title, self.lat,self.lon)
