@@ -107,13 +107,14 @@ class VolunteerViewAdmin(BaseViewAdmin):
 class PianoViewAdmin(VolunteerViewAdmin):
     edit_template = 'piano/edit_piano.html'
     create_template = 'piano/create_piano.html'
-
+    list_template = 'piano/list_piano.html'
 
 class RoleViewAdmin(SuperuserViewAdmin):
     column_searchable_list = ['name']
 
 
 class ImageViewAdmin(VolunteerViewAdmin):
+    list_template = "image/list_image.html"
     def _list_thumbnail(view, context, model, name):
         if not model.path:
             return ''

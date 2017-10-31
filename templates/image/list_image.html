@@ -221,14 +221,12 @@
 
 <script>
     $(document).ready(function(){
-        $(".col-url").each(function(){
-            var urlText = $(this).text();
-            $(this).html("<a href='" + urlText + "'>" + urlText + "</a>");
+        $(".col-path").each(function(){
+             var thumbPath = $(this).children("img").attr("src");
+             var fullPath = thumbPath.replace("_thumb", "");
+             $(this).wrap("<a href='"+fullPath+"'></a>");
         });
-        $(".col-image").each(function(){
-            var urlText = $(this).text();
-            $(this).html("<a href='" + urlText + "'>" + urlText + "</a>");
-        });
+
     });
 </script>
 
