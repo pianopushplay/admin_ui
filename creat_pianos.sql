@@ -1,4 +1,4 @@
-INSERT INTO piano ( title, lon, lat, bio, img, url)
+INSERT INTO piano ( title, lon, lat, bio, image, url)
 VALUES ("Alice @ LaurelHurst Park",  -122.6249635,45.5213906,"By Ivan Salcedo and named for musician Alice Coltrane, this beauty combines shapes, shades and shadows to suggest space, movement, and possibly narratives. Be sure to view all sides of the piece.","https://s3-us-west-2.amazonaws.com/ppp-pics/alice.jpg","http://www.pianopushplay.com/pianos/alice"),
 ("Amy @ Historical Society", -122.6846207, 45.515911, "By Katy Towell and named for composer Amy Beach, this petite antique-styled wonder is at the Oregon Historical Society.", "https://s3-us-west-2.amazonaws.com/ppp-pics/amy.jpg", "http://www.pianopushplay.com/pianos/amy"),
 ("Anna @ Holladay Park", 122.6535559, 45.53073355, "Designer Maureen Long invites you to play detective and find all the Northwest musicians depicted on this piano, named for piano prodigy Anna Fedorova", "https://s3-us-west-2.amazonaws.com/ppp-pics/anna.jpg", "http://www.pianopushplay.com/pianos/anna"),
