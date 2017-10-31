@@ -39,12 +39,6 @@ def security_context_processor():
     )
 
 
-# Create directory for file fields to use
-file_path = op.join(op.dirname(__file__), 'files')
-try:
-    os.mkdir(file_path)
-except OSError:
-    pass
 
 
 # Create customized model view class
@@ -109,18 +103,20 @@ class PianoViewAdmin(VolunteerViewAdmin):
     create_template = 'piano/create_piano.html'
     list_template = 'piano/list_piano.html'
 
+
 class RoleViewAdmin(SuperuserViewAdmin):
     column_searchable_list = ['name']
 
 
+image_path = op.join(op.dirname(__file__), 'static/images')
 class ImageViewAdmin(VolunteerViewAdmin):
-    list_template = "image/list_image.html"
+    # list_template = "image/list_image.html"
     def _list_thumbnail(view, context, model, name):
         if not model.path:
             return ''
 
         return Markup('<img src="%s">' % url_for('static',
-                                                 filename=form.thumbgen_filename(model.path)))
+                                                 filename='images/'+form.thumbgen_filename(model.path)))
 
     column_formatters = {
         'path': _list_thumbnail
@@ -130,7 +126,7 @@ class ImageViewAdmin(VolunteerViewAdmin):
     # In this case, Flask-Admin won't attempt to merge various parameters for the field.
     form_extra_fields = {
         'path': form.ImageUploadField('Image',
-                                      base_path=file_path,
+                                      base_path=image_path,
                                       thumbnail_size=(100, 100, True))
     }
 
@@ -141,13 +137,13 @@ def del_image(mapper, connection, target):
     if target.path:
         # Delete image
         try:
-            os.remove(op.join(file_path, target.path))
+            os.remove(op.join(image_path, target.path))
         except OSError:
             pass
 
         # Delete thumbnail
         try:
-            os.remove(op.join(file_path,
+            os.remove(op.join(image_path,
                               form.thumbgen_filename(target.path)))
         except OSError:
             pass
