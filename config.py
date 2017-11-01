@@ -7,6 +7,7 @@ class BaseConfig(object):
     SECRET_KEY = '\xcb\xa2\x92\xa206]\xd0\xdb\xfe\x9e\xa0\xab\x9d\xc4@\xd0\xf1\xa4\x15\xab\x1a)\xca'
     SQLALCHEMY_DATABASE_URI = os.environ['DATABASE_URL']
 
+
     # Flask-Security config
     SECURITY_URL_PREFIX = "/admin"
     SECURITY_PASSWORD_HASH = "pbkdf2_sha512"

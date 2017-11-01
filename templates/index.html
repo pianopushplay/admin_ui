@@ -1,10 +1,45 @@
 <html>
     <body>
         <div>
-            <a href="{{ url_for('admin.index') }}">Go to admin!</a>
+            <a href="{{ url_for('admin.index') }}"><h1>Go to admin!</h1></a>
         </div>
-        <div id="map">
-            google map with piano pins
-        </div>
+       <style>
+       #map {
+        height: 400px;
+        width: 100%;
+       }
+    </style>
+
+
+
+    <div id="piano_data">
+        <ul>
+        {% for piano in pianos %}
+            <li>{{ piano.title }}</li>
+            <li>{{ piano.lat }}</li>
+            <li>{{ piano.lon }}</li>
+            <br>
+        {% endfor %}
+        </ul>
+    </div>
+
+    <div id="map"></div>
+    <script>
+      function initMap() {
+        var psu = {lat: 54.76, lng: -112.36};
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 4,
+          center: psu
+        });
+        var marker = new google.maps.Marker({
+          position: psu,
+          map: map
+        });
+      }
+
+    </script>
+    <script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCIegMYBA5X870rGRqwORr5iCgYD2BLyyE&callback=initMap">
+    </script>
     </body>
 </html>

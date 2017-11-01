@@ -79,9 +79,9 @@ export DATABASE_URL='connection-to-your-db'
 eg. :
 export DATABASE_URL='mysql+pymysql://user:password@host:port/db_name'
 
-python manage.py db init
-python manage.py db migrate
 python manage.py db upgrade
+
+create a superuser manually 
 
 git checkout -b the_issue_you_want_to_work_on
 ```
@@ -90,3 +90,6 @@ git checkout -b the_issue_you_want_to_work_on
 ```
 python manage.py runserver 
 ```
+### live demo : [pianoadmin](http://adrianacmy.pythonanywhere.com)
+
+
