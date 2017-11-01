@@ -11,15 +11,16 @@
 <section id="login">
     <div class="container" style="background:#fff">
         {% if not current_user.is_authenticated %}
-        <div class="row">
-            <div class="col-sm-6 col-sm-offset-3">
-                <h3>Please log in with your credentials</h3>
+        <div class="row" style="margin-top:7em">
+            <div class="col-sm-4 col-sm-offset-4" >
+                <h3 class="text-center" style="margin-bottom: 2em">Please log in </h3>
+                <h3 class="text-center" style="margin-bottom: 2em">Or get a ccount from admin </h3>
                 <p>
                     <br>
-                    <a class="btn btn-primary btn-lg form-control" href="{{ url_for('security.login') }}">login</a>
+                    <a class="btn  btn-lg form-control loginBtn"  href="{{ url_for('security.login') }}">Login</a>
                 </p>
                 <p>
-                    <a class="btn btn-primary btn-lg form-control" href="/"><i class="glyphicon glyphicon-chevron-left"></i> Back</a>
+                    <a class="btn btn-lg form-control bckBtn"  href="/"><i class="glyphicon glyphicon-chevron-left"></i> Back</a>
                 </p>
             </div>
         </div>
@@ -50,11 +51,21 @@
             </div>
              <div class="col-md-4">
               <img src="{{ url_for('static',filename='images/other-than-piano/piano7.jpg') }}"
-                     alt="piano" class="img-responsive">
+                     alt="piano" class="img-responsive"><br>
+             <div style="padding:2em" class="text-center">
+                    <h4>Learn more about specific Pianos!</h4><br>
+                    <h5>who the artisan is, and their specific locations</h5><br>
+                    <a href="http://www.pianopushplay.com/what-we-do">Learn More</a>
+                </div><br><br>
             </div>
              <div class="col-md-4">
               <img src="{{ url_for('static',filename='images/other-than-piano/piano7.jpg') }}"
-                     alt="piano" class="img-responsive">
+                     alt="piano" class="img-responsive"><br>
+                 <div style="padding:2em" class="text-center">
+                    <h4>In the evening, the Pianos entice passersby to stop and play.</h4><br>
+                    <h5>Read new articles and watch videos of our press coverage.</h5><br>
+                    <a href="http://www.pianopushplay.com/what-we-do">Learn More</a>
+                </div><br><br>
             </div>
         </div>
         <hr>

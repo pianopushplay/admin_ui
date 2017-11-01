@@ -5,6 +5,7 @@
     color: #fff;
     font-size: 1.5em;
     padding-top: 0.5em;
+    margin-top: 2em;
  }
 
  #footer .row{
@@ -14,4 +15,32 @@
 #footer .copy {
     background: #2d1f13;
     padding: 0.8em 0;
+}
+
+.navbar {
+    background: url("../images/other-than-piano/street-concert.jpg") no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    position: relative;
+    height: 50vh;
+    padding-top: 45vh;
+    color: #ffffff;
+}
+.navbar:before{
+    content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to left, #422d1d, #725138);
+  opacity: 0.3;
+}
+
+#admin-navbar-collapse li a {
+    font-weight: 500px;
+    font-size: 1.4em;
+    color: #ffffff;
 }
