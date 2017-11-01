@@ -1,25 +1,76 @@
-{% extends 'admin/master.html' %}
+{% extends 'admin/piano_master.html' %}
+
+{% block head_css %}
+  {{ super() }}
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css', _external=True) }}" ></link>
+{% endblock %}
+
+
 {% block body %}
 {{ super() }}
-<div class="container">
-    <div class="row">
-        <div class="col-sm-10 col-sm-offset-1">
-            <h1>Yeah, pianos</h1>
+<section id="login">
+    <div class="container" style="background:#fff">
+        {% if not current_user.is_authenticated %}
+        <div class="row" style="margin-top:7em">
+            <div class="col-sm-4 col-sm-offset-4" >
+                <h3 class="text-center" style="margin-bottom: 2em">Please log in </h3>
+                <h3 class="text-center" style="margin-bottom: 2em">Or get a ccount from admin </h3>
+                <p>
+                    <br>
+                    <a class="btn  btn-lg form-control loginBtn"  href="{{ url_for('security.login') }}">Login</a>
+                </p>
+                <p>
+                    <a class="btn btn-lg form-control bckBtn"  href="/"><i class="glyphicon glyphicon-chevron-left"></i> Back</a>
+                </p>
+            </div>
+        </div>
+
+        {% else %}
+        <div class="row" style="padding: 2em"><br><br>
+            <h3>WE WANT TO GIVE PIANISTS MORE OPPORTUNITIES TO PLAY FOR THE PUBLIC.</h3><br><br>
             <p class="lead">
-
-            </p>
-
-            {% if not current_user.is_authenticated %}
-            <p>You can register as a regular user, or log in with your superuser credentials</p>
-
-            <p>
-                <a class="btn btn-primary" href="{{ url_for('security.login') }}">login</a> <a class="btn btn-default" href="{{ url_for('security.register') }}">register</a>
-            </p>
-            {% endif %}
-            <p>
-                <a class="btn btn-primary" href="/"><i class="glyphicon glyphicon-chevron-left"></i> Back</a>
+                This outreach project is about developing more ways for people to see, hear and enjoy the piano in
+                action.
+                </p><br>
+            <p class="lead">It began as a pop-up concert series with one piano on one street corner -- created to
+                break down the barrier between performers and audience members, between professional musicians
             </p>
         </div>
+        <hr>
+        <br><br>
+        <div class="row" >
+            <div class="col-md-4">
+              <img src="{{ url_for('static',filename='images/other-than-piano/piano7.jpg') }}"
+                     alt="piano" class="img-responsive"><br>
+                <div style="padding:2em" class="text-center">
+                    <h4>Day or night, people gather around the piano and play.</h4><br>
+                    <h5>Find out about our mission and artists</h5><br>
+                    <a href="http://www.pianopushplay.com/what-we-do">Learn More</a>
+                </div><br><br>
+            </div>
+             <div class="col-md-4">
+              <img src="{{ url_for('static',filename='images/other-than-piano/piano7.jpg') }}"
+                     alt="piano" class="img-responsive"><br>
+             <div style="padding:2em" class="text-center">
+                    <h4>Learn more about specific Pianos!</h4><br>
+                    <h5>who the artisan is, and their specific locations</h5><br>
+                    <a href="http://www.pianopushplay.com/what-we-do">Learn More</a>
+                </div><br><br>
+            </div>
+             <div class="col-md-4">
+              <img src="{{ url_for('static',filename='images/other-than-piano/piano7.jpg') }}"
+                     alt="piano" class="img-responsive"><br>
+                 <div style="padding:2em" class="text-center">
+                    <h4>In the evening, the Pianos entice passersby to stop and play.</h4><br>
+                    <h5>Read new articles and watch videos of our press coverage.</h5><br>
+                    <a href="http://www.pianopushplay.com/what-we-do">Learn More</a>
+                </div><br><br>
+            </div>
+        </div>
+        <hr>
+        <br>
+        {% endif %}
     </div>
-</div>
+</section>
+
 {% endblock body %}

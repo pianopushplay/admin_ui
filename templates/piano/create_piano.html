@@ -1,0 +1,81 @@
+{% extends 'admin/master.html' %}
+{% import 'admin/lib.html' as lib with context %}
+{% from 'admin/lib.html' import extra with context %} {# backward compatible #}
+
+{% block head %}
+  {{ super() }}
+  {{ lib.form_css() }}
+{% endblock %}
+
+{% block body %}
+  {% block navlinks %}
+  <ul class="nav nav-tabs">
+    <li>
+        <a href="{{ return_url }}">{{ _gettext('List') }}</a>
+    </li>
+    <li class="active">
+        <a href="javascript:void(0)">{{ _gettext('Create') }}</a>
+    </li>
+  </ul>
+  {% endblock %}
+
+  {% block create_form %}
+    {{ lib.render_form(form, return_url, extra(), form_opts) }}
+  {% endblock %}
+
+
+  <br><br>
+    <div class="lead col-md-8 col-md-offset-2">
+        <p>Populate lon and lat fields by clicking below button or manually enter them.</p>
+        <button onclick="getLocation()" class="btn btn-success">Get Location</button>
+        <p id="geo"></p>
+
+        <script>
+        var x = document.getElementById("geo");
+        var options = {
+          enableHighAccuracy: true,
+          maximumAge: 0,
+          timeout: 5000,
+        };
+
+        function success(position) {
+            x.innerHTML = "Your current location: <br>Latitude: " + position.coords.latitude +
+            "<br>Longitude: " + position.coords.longitude;
+
+            document.getElementById("lat").value = position.coords.latitude;
+            document.getElementById("lon").value = position.coords.longitude;
+        };
+
+        function error(error) {
+             switch(error.code) {
+                    case error.PERMISSION_DENIED:
+                        x.innerHTML = "User denied the request for Geolocation."
+                        break;
+                    case error.POSITION_UNAVAILABLE:
+                        x.innerHTML = "Location information is unavailable."
+                        break;
+                    case error.TIMEOUT:
+                        x.innerHTML = "The request to get user location timed out."
+                        break;
+                    case error.UNKNOWN_ERROR:
+                        x.innerHTML = "An unknown error occurred."
+                        break;
+                }
+        };
+
+        function getLocation() {
+          if (navigator.geolocation) {
+             navigator.geolocation.getCurrentPosition(success, error, options);
+            } else {
+              x.innerHTML = "Geolocation is not supported by this browser.";
+            }
+        };
+        </script>
+    </div>
+
+{% endblock %}
+
+{% block tail %}
+  {{ super() }}
+  {{ lib.form_js() }}
+{% endblock %}

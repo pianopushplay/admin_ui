@@ -1,6 +1,9 @@
 # Admin UI for [Piano. Push. Play.](http://www.pianopushplay.com)
 
 ## App overview
+- This admin UI tracks all pianos on piano.push.play, handles authentication and authrization of 
+  all admins and volunteers. 
+  
 ### volunteer
  - update pianos 
 ### administrator(admin)
@@ -91,4 +94,3 @@ git checkout -b the_issue_you_want_to_work_on
 python manage.py runserver 
 ```
 ### live demo : [pianoadmin](http://adrianacmy.pythonanywhere.com)
-

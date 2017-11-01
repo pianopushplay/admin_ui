@@ -1,0 +1,18 @@
+body {
+  color: green;
+  background: url("../images/other-than-piano/header.jpg") no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+  position: relative;
+}
+
+.loginBtn, .bckBtn {
+    padding: 1.8em 1.8em 2.5em 1.8em;
+    background-color: #668482;
+    color: #fff;
+    }
+
+.bckBtn{
+    margin-top: 2em;
+    margin-bottom: 10em;
+}

@@ -1,5 +1,11 @@
 {% extends 'admin/base.html' %}
 
+
+{% block head_css %}
+  {{ super() }}
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/piano_admin.css', _external=True) }}" ></link>
+{% endblock %}
+
 {% block access_control %}
 {% if current_user.is_authenticated %}
 <div class="navbar-text btn-group pull-right">
@@ -15,4 +21,35 @@
     </ul>
 </div>
 {% endif %}
+{% endblock %}
+
+{% block tail %}
+    {{ super() }}
+    <section id="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12"><p>We rescue pianos and put them on the street for everybody to enjoy.</p></div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    UNLESS OTHERWISE NOTED,
+ALL PHOTOGRAPHY PROVIDED BY <a href="www.benjivuong.com">BENJI VUONG</a>
+                </div>
+                <div class="col-md-6 text-right">
+                    <img src="{{ url_for('static',filename='images/other-than-piano/PragmaticLogoSmall.png') }}"
+                         alt="small-logo" class="img-responsive">
+                </div>
+            </div>
+
+        </div>
+         <div class="copy">
+             <div class="row">
+                 <div class="container">
+                    <div class="col-md-12">
+                        &copy;2017.piano.push.play
+                    </div>
+                 </div>
+             </div>
+         </div>
+    </section>
 {% endblock %}

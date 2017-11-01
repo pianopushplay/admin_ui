@@ -1,15 +1,18 @@
+
 from flask_sqlalchemy import get_debug_queries, SQLAlchemy, Pagination
 from flask import Flask
 from flask_bcrypt import Bcrypt
 
-app = Flask(__name__)
+
+
+app = Flask(__name__, static_folder='static')
+
 app.config.from_object("config.BaseConfig")
 
 bcrypt = Bcrypt(app)
 db = SQLAlchemy(app)
 
 from views import *
-
 
 
 def sql_debug(response):
@@ -32,6 +35,7 @@ def sql_debug(response):
 
 if app.debug:
     app.after_request(sql_debug)
+
 
 if __name__ == "__main__":
     app.run()
