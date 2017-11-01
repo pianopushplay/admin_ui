@@ -3,9 +3,6 @@ from sqlalchemy import Boolean, DateTime, Column, Integer, \
                        String, ForeignKey
 from flask_security import UserMixin, RoleMixin
 
-
-
-
 from app import db, bcrypt
 
 roles_users = db.Table('roles_users',
@@ -49,11 +46,21 @@ class Piano(db.Model):
     url = db.Column(db.String(120), nullable=True)
     active = db.Column(db.Boolean, default=True)
     user_id = db.Column(db.Integer, ForeignKey('user.id'))
-    images = relationship("Image", backref="piano")
+    image = relationship("Image", uselist=False, backref="piano")
 
     def __repr__(self):
         return '{} @ ({}, {})'.format(self.title, self.lat,self.lon)
 
+    def json_dump(self):
+        pianoJson = {}
+        pianoJson['lat'] = self.lat
+        pianoJson['lon'] = self.lon
+        pianoJson['image'] = str(self.image)
+        pianoJson['title'] = self.title
+        pianoJson['bio'] = self.bio
+        pianoJson['url'] = self.url
+
+        return pianoJson
 
 class Image(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -61,7 +68,7 @@ class Image(db.Model):
     path = db.Column(db.Unicode(128))
     piano_id = db.Column(db.Integer, ForeignKey('piano.id'))
     def __repr__(self):
-        return self.name
+        return self.path
 
 
 
