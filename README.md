@@ -1,6 +1,9 @@
 # Admin UI for [Piano. Push. Play.](http://www.pianopushplay.com)
 
 ## App overview
+- This admin UI tracks all pianos on piano.push.play, handles authentication and authrization of 
+  all admins and volunteers. 
+  
 ### volunteer
  - update pianos 
 ### administrator(admin)
