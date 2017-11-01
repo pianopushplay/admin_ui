@@ -109,6 +109,7 @@ class PianoViewAdmin(VolunteerViewAdmin):
     create_template = 'piano/create_piano.html'
     list_template = 'piano/list_piano.html'
 
+
 class RoleViewAdmin(SuperuserViewAdmin):
     column_searchable_list = ['name']
 
