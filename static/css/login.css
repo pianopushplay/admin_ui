@@ -1,9 +1,15 @@
 body {
-  color: green;
   background: url("../images/other-than-piano/header.jpg") no-repeat;
   background-size: cover;
   background-attachment: fixed;
   position: relative;
+}
+
+.navbar-header, .navbar-brand, #admin-navbar-collapse li a {
+    font-weight: 500px;
+    font-size: 1.4em;
+    color: #282625;
+    border-radius: 0;
 }
 
 .loginBtn, .bckBtn {
@@ -14,5 +20,9 @@ body {
 
 .bckBtn{
     margin-top: 2em;
-    margin-bottom: 10em;
+    margin-bottom: 8em;
+}
+
+#login {
+    margin-top: 2em;
 }
