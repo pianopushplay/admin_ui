@@ -71,9 +71,9 @@ class BaseViewAdmin(ModelView):
 class SuperuserViewAdmin(BaseViewAdmin):
     form_overrides = dict(Email=EmailField,Password=PasswordField)
     form_args = dict(
-        email=dict(label='email', validators=[DataRequired(),
+        email=dict(label='Email', validators=[DataRequired(),
                                               Email(message=None), Length(min=6, max=20)]),
-        password=dict(label='password', validators=[DataRequired()]),
+        password=dict(label='Password', validators=[DataRequired()]),
     )
     def is_accessible(self):
 
