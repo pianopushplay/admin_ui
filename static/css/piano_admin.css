@@ -38,7 +38,8 @@
   opacity: 0.45;
 }
 
-.navbar-header,  #admin-navbar-collapse li a{
+
+.navbar-header, #admin-navbar-collapse li a {
     font-weight: 500px;
     font-size: 1.4em;
     color: #5aa0fc;

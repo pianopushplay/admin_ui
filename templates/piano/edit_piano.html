@@ -2,9 +2,11 @@
 
 {% block body %}
     {{ super() }}
+
 <br><br>
 <div class="lead col-md-8 col-md-offset-2">
     <p>Populate lon and lat fields by clicking below button or manually enter them.</p>
+
     <button onclick="getLocation()" class="btn btn-success">Get Location</button>
     <p id="geo"></p>
 
@@ -24,6 +26,7 @@ function success(position) {
     document.getElementById("lon").value = position.coords.longitude;
 };
 
+
 function error(error) {
      switch(error.code) {
             case error.PERMISSION_DENIED:
@@ -39,6 +42,7 @@ function error(error) {
                 x.innerHTML = "An unknown error occurred."
                 break;
         }
+
 };
 
 function getLocation() {

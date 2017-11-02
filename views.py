@@ -111,6 +111,7 @@ class RoleViewAdmin(SuperuserViewAdmin):
 image_path = op.join(op.dirname(__file__), 'static/images')
 class ImageViewAdmin(VolunteerViewAdmin):
     # list_template = "image/list_image.html"
+
     def _list_thumbnail(view, context, model, name):
         if not model.path:
             return ''

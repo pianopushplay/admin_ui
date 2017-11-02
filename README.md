@@ -94,5 +94,3 @@ git checkout -b the_issue_you_want_to_work_on
 python manage.py runserver 
 ```
 ### live demo : [pianoadmin](http://adrianacmy.pythonanywhere.com)
-
-
