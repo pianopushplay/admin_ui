@@ -19,6 +19,12 @@ from models import *
 from app import app, db
 
 from flask_restful import Resource, Api
+
+from wtforms import TextField, PasswordField, StringField, TextAreaField,DateField, IntegerField
+from wtforms.fields.html5 import EmailField
+from wtforms.validators import DataRequired, Length, Email
+
+
 api = Api(app)
 
 
@@ -63,7 +69,14 @@ class BaseViewAdmin(ModelView):
 
 
 class SuperuserViewAdmin(BaseViewAdmin):
+    form_overrides = dict(Email=EmailField,Password=PasswordField)
+    form_args = dict(
+        email=dict(label='email', validators=[DataRequired(),
+                                              Email(message=None), Length(min=6, max=20)]),
+        password=dict(label='password', validators=[DataRequired()]),
+    )
     def is_accessible(self):
+
         # set accessibility...
         if not current_user.is_active or not current_user.is_authenticated:
             return False
@@ -74,7 +87,6 @@ class SuperuserViewAdmin(BaseViewAdmin):
             self.can_delete = True
             return True
         return False
-
 
 class VolunteerViewAdmin(BaseViewAdmin):
     can_export = False
@@ -111,6 +123,7 @@ class RoleViewAdmin(SuperuserViewAdmin):
 image_path = op.join(op.dirname(__file__), 'static/images')
 class ImageViewAdmin(VolunteerViewAdmin):
     # list_template = "image/list_image.html"
+
     def _list_thumbnail(view, context, model, name):
         if not model.path:
             return ''

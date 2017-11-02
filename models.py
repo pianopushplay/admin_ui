@@ -12,21 +12,21 @@ roles_users = db.Table('roles_users',
 
 class Role(db.Model, RoleMixin):
     id = db.Column(db.Integer(), primary_key=True)
-    name = db.Column(db.String(80), unique=True)
-    description = db.Column(db.String(255))
+    name = db.Column(db.String(80), unique=True, nullable=False)
+    description = db.Column(db.String(255), nullable=False)
 
     def __repr__(self):
         return self.name
 
 class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
-    first_name = db.Column(db.String(120))
-    last_name = db.Column(db.String(120))
-    email = db.Column(db.String(255), unique=True)
-    password = db.Column(db.String(255))
+    first_name = db.Column(db.String(120), nullable=False)
+    last_name = db.Column(db.String(120), nullable=False)
+    email = db.Column(db.String(255), unique=True, nullable=False)
+    password = db.Column(db.String(255), nullable=False)
     phone = db.Column(db.String(120))
     city = db.Column(db.String(120))
-    active = db.Column(db.Boolean())
+    active = db.Column(db.Boolean(), default=True)
     roles = db.relationship('Role', secondary=roles_users,
                             backref=db.backref('users', lazy='dynamic'))
     pianos = relationship("Piano", backref="user")
@@ -37,9 +37,9 @@ class User(db.Model, UserMixin):
 
 class Piano(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String(120), unique=True)
-    lat = db.Column(db.Float)
-    lon = db.Column(db.Float)
+    title = db.Column(db.String(120), unique=True, nullable=False)
+    lat = db.Column(db.Float, nullable=False)
+    lon = db.Column(db.Float, nullable=False)
     bio = db.Column(db.Text)
     update_date = db.Column(db.DateTime, server_default=None)
     url = db.Column(db.String(120))
@@ -64,7 +64,7 @@ class Piano(db.Model):
 
 class Image(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(64), unique=True)
+    name = db.Column(db.String(64), unique=True, nullable=False)
     path = db.Column(db.String(128))
     piano_id = db.Column(db.Integer, ForeignKey('piano.id'))
     
