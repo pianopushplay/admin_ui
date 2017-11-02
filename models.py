@@ -22,8 +22,8 @@ class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     first_name = db.Column(db.String(120))
     last_name = db.Column(db.String(120))
-    email = db.Column(db.String(255), unique=True)
-    password = db.Column(db.String(255))
+    email = db.Column(db.String(255), unique=True, nullable=False)
+    password = db.Column(db.String(255), nullable=False)
     phone = db.Column(db.String(120))
     city = db.Column(db.String(120))
     active = db.Column(db.Boolean())
@@ -64,7 +64,7 @@ class Piano(db.Model):
 
 class Image(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(64))
+    name = db.Column(db.String(64), nullable=False)
     path = db.Column(db.String(128))
     piano_id = db.Column(db.Integer, ForeignKey('piano.id'))
     
