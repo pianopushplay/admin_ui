@@ -71,14 +71,6 @@ class TestUser(BaseTestCase):
             self.assertTrue(current_user.id == 1)
             self.assertFalse(current_user.id == 20)
 
-    # Ensure given password is correct after unhashing
-    # def test_check_password(self):
-    #     user = User.query.filter_by(email='admin@gmail.com').first()
-    #     self.assertTrue(bcrypt.check_password_hash(user.password, "pianoadmin"))
-
-        # self.assertFalse(bcrypt.check_password_hash(user.password, 'dsaafdafdeefffffffffffffffffff34'))
-
-
 
 class PianoTests(BaseTestCase):
     # Ensure a logged in superuser can add a new piano
