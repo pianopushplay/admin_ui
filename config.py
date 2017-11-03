@@ -1,4 +1,5 @@
 import os
+from flask_bcrypt import Bcrypt
 
 
 # default config
@@ -11,7 +12,10 @@ class BaseConfig(object):
     # Flask-Security config
     SECURITY_URL_PREFIX = "/admin"
     SECURITY_PASSWORD_HASH = "pbkdf2_sha512"
+    # SECURITY_PASSWORD_HASH = "bcrypt"
     SECURITY_PASSWORD_SALT = "ATGUOHAELKiubahiughaerGOJAEGj"
+    # SECURITY_PASSWORD_SALT = Bcrypt.gensalt()
+
 
     # Flask-Security URLs, overridden because they don't put a / at the end
     SECURITY_LOGIN_URL = "/login/"

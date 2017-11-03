@@ -3,7 +3,7 @@ from sqlalchemy import Boolean, DateTime, Column, Integer, \
                        String, ForeignKey
 from flask_security import UserMixin, RoleMixin
 
-from app import db, bcrypt
+from app import db
 
 roles_users = db.Table('roles_users',
         db.Column('user_id', db.Integer(), db.ForeignKey('user.id')),
@@ -33,6 +33,7 @@ class User(db.Model, UserMixin):
 
     def __repr__(self):
         return self.email
+
 
 
 class Piano(db.Model):
