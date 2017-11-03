@@ -68,7 +68,7 @@
 - AJAX: send data to back end (or just use form) ???
     
 
-## How to contribute
+## How to contribute/install
 ```
 git clone .... admin_ui
 cd admin_ui
@@ -83,16 +83,16 @@ eg. :
 export DATABASE_URL='mysql+pymysql://user:password@host:port/db_name'
 
 python manage.py db upgrade
-
-create a superuser manually 
-
-git checkout -b the_issue_you_want_to_work_on
 ```
+## run db_create_user.py to create  users and roles
+`$ python db_create_user.py`
 
+## login with the superuser created above
+## Optionally run create_pianos.sql to populate database
 ## Run server
 ```
 python manage.py runserver 
 ```
-### live demo : [pianoadmin](http://adrianacmy.pythonanywhere.com)
+### Live demo : [pianoadmin](http://adrianacmy.pythonanywhere.com)
 
 
