@@ -3,7 +3,7 @@
 ## App overview
 - This admin UI tracks all pianos on piano.push.play, handles authentication and authrization of 
   all admins and volunteers. 
-  
+
 ### volunteer
  - update pianos 
 ### administrator(admin)
@@ -19,7 +19,7 @@
 3. volunteers.html only show to admins
 4. pianos.html shows to all authenticated parties
 5. unauthed parties login go to pianos_on_map.html which is a map with all displayable pianos' location(route: BASE_DIR/) 
-5. pianos API will be available at BASE_DIR/api/v1.0/pianos/
+6. pianos API will be available at BASE_DIR/api/v1.0/pianos/
 
 ---
  - tasks for volunteers(vols):
@@ -37,7 +37,7 @@
         - after done editing, redirect to volunteer_detail.html(route: admin/volunteers/<int: vol_id>)
     - delete vol: click 'delete' on any volunteer_detail.html(route: admin/volunteers/<int: vol_id>) to deactive vols
         - after done delete, redirect to volunteers.html(route:admin/volunteers)
-        
+
     - add piano: click 'add pianos' on pianos.html goes to pianos_add.html (route:admin/pianos/add)
         - after done adding, redirect to piano_detail.html(route: admin/pianos/<int: piano_id>)
     - edit piano: click any pianos on pianos.html, goes to pianos_detail.html(route: admin/pianos/<int: piano_id>) 
@@ -45,7 +45,7 @@
         - after done editing, redirect to pianos_detail.html(route: admin/pianos/<int: piano_id>)
     - delete pianos: click 'delete' on any pianos_detail.html(route: admin/pianos/<int: piano_id>) to deactive pianos
         - after done delete, redirect to pianos.html(route:admin/pianos)
- 
+
 ## To learn:
 
 * JavaScript
@@ -63,34 +63,55 @@
 - flask-security
 - Flask-Migrate: db migration
 - Flask-Bcrypt: hash password
-- Bootstrap 4 
-- JavaScript: get geoLocation (HTML5 Geolocation API might be a better choice, TODO: check mobile browsers support )
+- Bootstrap 4 Alpha
+- JavaScript: get geoLocation
 - AJAX: send data to back end (or just use form) ???
-    
+
 
 ## How to contribute
-```
-git clone .... admin_ui
+
+1. Clone the repository:
+
+```bash
+git clone git@github.com:pianopushplay/admin_ui.git
 cd admin_ui
+```
+2. Create virtual environment (pip is REQUIRED at the end)
+```bash
+conda create -n yourenvname pip
+source activate yourenvname
+```
+3. Update packages from requirements file using pip (for now there is few too many of them)
+```bash
+pip install -r requirements.txt
+```
 
-conda create -n yourenv
-source activate yourenv
-
-create your database db_name
-
+3. Create MySQL database `db_name` and export it to local environment:
+```bash
 export DATABASE_URL='connection-to-your-db'
-eg. :
+e.g.:
 export DATABASE_URL='mysql+pymysql://user:password@host:port/db_name'
-
+```
+4. Run `manage.py` to create tables
+```bash
 python manage.py db upgrade
+```
+If you get an error similar to this: 
 
-create a superuser manually 
-
-git checkout -b the_issue_you_want_to_work_on
+```bash
+sqlalchemy.exc.InternalError: (pymysql.err.InternalError) (1130, "Host '127.0.0.1' is not allowed to connect to this MySQL server")
 ```
 
-## Run server
-```
+create database at 127.0.0.1 not the usual localhost.
+
+5. Create a superuser manually via phpMyAdmin or mysql shell
+   * create **superuser** and **volunteer** roles in `role` table
+   * create a new **user** in `user` table
+   * create a row in `roles_users` with the **user's id** and the **superuser id**
+6. Run server:
+
+```bash
 python manage.py runserver 
 ```
+
 ### live demo : [pianoadmin](http://adrianacmy.pythonanywhere.com)
