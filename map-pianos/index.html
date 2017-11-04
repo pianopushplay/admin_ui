@@ -32,6 +32,14 @@
           title: "Voodoo Doughnut" // hover over title
         });
 
+        // add info window
+        var infowindow = new google.maps.InfoWindow({
+          content: "This counter-serve, cash-only bakeshop serves creative donuts in colorful, quirky environs."
+        });
+        // tell map when and where to show the info window
+        marker.addListener('click', function() {
+          infowindow.open(map, marker) // marker connection 
+        })
       }
     </script>
 
