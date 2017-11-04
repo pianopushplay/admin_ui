@@ -12,11 +12,15 @@
         height: 100%;
       }
     </style>
+    <script type="text/javascript">
+      src="pianos.js"
+    </script>
   </head>
   <body>
     <div id="map"></div>
     <script>
       var map;
+      var markers = []; // holds markers for locations
       function initMap() {
         // Constructor creates a new map - only center and zoom are required.
         map = new google.maps.Map(document.getElementById('map'), {
@@ -24,23 +28,58 @@
           zoom: 16
         });
 
-        var voodooDoughnut = {lat: 45.522698, lng:-122.673114} // new location
-        // add marker for location
-        var marker = new google.maps.Marker({
-          position: voodooDoughnut,
-          map: map,
-          title: "Voodoo Doughnut" // hover over title
-        });
+        var largeInfowindow = new google.maps.InfoWindow();
+        var bounds = new google.maps.LatLngBounds(); // extend map if pianos are outside of current bounds
 
-        // add info window
-        var infowindow = new google.maps.InfoWindow({
-          content: "This counter-serve, cash-only bakeshop serves creative donuts in colorful, quirky environs."
-        });
-        // tell map when and where to show the info window
-        marker.addListener('click', function() {
-          infowindow.open(map, marker) // marker connection 
-        })
+        var locations = [
+          {title: "Joplin @ ADX", location: {lat: 45.519877, lng: -122.6548975}, bio: "bio test"},
+          {title: "Ellington @ Martha's", location: {lat: 45.518979, lng: -122.652723}, bio: "bio test"},
+          {title: "#SeeingSound @ CymaSpace", location: {lat: 45.5160913, lng: -122.659702}, bio: "bio test"},
+
+        ];
+
+        // The following group uses the location array to create an array of markers on initialize.
+        for (var i = 0; i < locations.length; i++) {
+          // Get the position from the location array.
+          var position = locations[i].location;
+          var title = locations[i].title + "-" + locations[i].bio;
+          // Create a marker per location, and put into markers array.
+          var marker = new google.maps.Marker({
+            map: map,
+            position: position,
+            title: title,
+            animation: google.maps.Animation.DROP,
+            id: i
+          });
+          // Push the marker to our array of markers.
+          markers.push(marker);
+          // Create an click event to open an infowindow
+          marker.addListener('click', function() {
+            populateInfoWindow(this, largeInfowindow);
+          });
+          bounds.extend(markers[i].position);
+        } // end for loop
+
+        // Extend the boundaries of the map for each marker
+        map.fitBounds(bounds);
       }
+      // This function populates the infowindow when the marker is clicked.
+      // only allows one infowindow
+      function populateInfoWindow(marker, infowindow) {
+        // Check to make sure the infowindow is not already opened on this marker.
+        if (infowindow.marker != marker) {
+          infowindow.marker = marker;
+          infowindow.setContent('<div>' + marker.title + '</div>');
+          infowindow.open(map, marker);
+          // Make sure the marker property is cleared if the infowindow is closed.
+          infowindow.addListener('closeclick',function(){
+            infowindow.setMarker = null;
+          });
+        }
+      }
+
+
+
     </script>
 
     <script async defer
