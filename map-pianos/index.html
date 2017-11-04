@@ -20,9 +20,18 @@
       function initMap() {
         // Constructor creates a new map - only center and zoom are required.
         map = new google.maps.Map(document.getElementById('map'), {
-          center: {lat: 45.5240954, lng: -122.6658226},
+          center: {lat: 45.5240954, lng: -122.6658226}, // center of the map
           zoom: 16
         });
+
+        var voodooDoughnut = {lat: 45.522698, lng:-122.673114} // new location
+        // add marker for location
+        var marker = new google.maps.Marker({
+          position: voodooDoughnut,
+          map: map,
+          title: "Voodoo Doughnut" // hover over title
+        });
+
       }
     </script>
 
