@@ -18,8 +18,16 @@
   <body>
     <div id="map"></div>
     <script>
+      $.getJSON('https://raw.githubusercontent.com/Pianos/backend/master/data/locations.json', function (data) {
+          console.log(data);
+          t = data;
+          console.log(data);
+      });
+
       var map;
       var markers = []; // holds markers for locations
+
+
       function initMap() {
         // Constructor creates a new map - only center and zoom are required.
         map = new google.maps.Map(document.getElementById('map'), {
@@ -82,7 +90,7 @@
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAmASxfQIqFADtdbsRES70ZudPf5wFKxGo&v=3&callback=initMap">
     </script>
 
-    <script type="text/javascript">
+    <!-- <script type="text/javascript">
         var t = null;
 
     $.getJSON('https://raw.githubusercontent.com/Pianos/backend/master/data/locations.json', function (data) {
@@ -91,7 +99,7 @@
         console.log(data);
     });
 
-    </script>
+    </script> -->
 
   </body>
 </html>
