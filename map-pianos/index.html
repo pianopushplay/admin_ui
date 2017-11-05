@@ -13,9 +13,7 @@
         max-width: 800px
       }
     </style>
-    <script type="text/javascript">
-      src="pianos.js"
-    </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   </head>
   <body>
     <div id="map"></div>
@@ -85,6 +83,17 @@
 
     <script async defer
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAmASxfQIqFADtdbsRES70ZudPf5wFKxGo&v=3&callback=initMap">
+    </script>
+
+    <script type="text/javascript">
+        var t = null;
+
+    $.getJSON('https://raw.githubusercontent.com/Pianos/backend/master/data/locations.json', function (data) {
+        alert(data);
+        t = data;
+        alert(t);
+    });
+
     </script>
 
   </body>
