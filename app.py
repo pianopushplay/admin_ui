@@ -1,13 +1,13 @@
 
 from flask_sqlalchemy import get_debug_queries, SQLAlchemy, Pagination
 from flask import Flask
-# from flask_bcrypt import Bcrypt
+from flask_bcrypt import Bcrypt
 
 
 app = Flask(__name__, static_folder='static')
 app.config.from_object("config.BaseConfig")
 
-# bcrypt = Bcrypt(app)
+bcrypt = Bcrypt(app)
 db = SQLAlchemy(app)
 
 from views import *

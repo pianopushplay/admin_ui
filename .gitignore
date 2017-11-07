@@ -6,8 +6,7 @@ db_*
 workspace.xml
 Procfile
 runtime.txt
-db_create_user.py
 files/
 migrations/
-creat_pianos.sql
+db_creat_pianos.sql
 images/
