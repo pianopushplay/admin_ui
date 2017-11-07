@@ -8,5 +8,6 @@ Procfile
 runtime.txt
 files/
 migrations/
-db_creat_pianos.sql
+db_creat_pianos.py
 images/
+!/db_create_user.py
